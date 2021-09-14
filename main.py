@@ -5,6 +5,6 @@ from pprint import pprint
 pinNumber = input("Enter PIN Number: ")
 password = getpass("Enter Password: ")
 
-classesList = getClasses(pinNumber, password)
+classList = getClasses(pinNumber, password)
 
-pprint(classesList)
+pprint(classList)
