@@ -1,7 +1,6 @@
 from getpass import getpass
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-import time
 
 def getClasses(username, password):
     attempt = 0
@@ -32,14 +31,12 @@ def getClasses(username, password):
             pw.send_keys(password)
 
         driver.find_element_by_name('Submit').click()
-        time.sleep(2)
         currentPage = driver.current_url
         attempt += 1
 
     driver.get(gLearn)
 
     links = driver.find_elements_by_css_selector('tbody tr td a')
-    links.reverse()
 
     exportList = []
 
@@ -48,7 +45,13 @@ def getClasses(username, password):
             url = link.get_attribute('href')
             link.text.replace('\n', ' ')
             link = link.text.split('\nDate')
-            session = {"name": link[0].split(' created by ')[0], "lecturer": link[0].split(' created by ')[1],"date": link[1].split(" : ")[1].split(" :: Time:")[0], "time": link[1].split(" : ")[1].split(" :: Time:")[1], "url": url}
+            session = {
+                "name": link[0].split(' created by ')[0],
+                "lecturer": link[0].split(' created by ')[1],
+                "date": link[1].split(" : ")[1].split(" :: Time:")[0],
+                "time": link[1].split(" : ")[1].split(" :: Time:")[1],
+                "url": url
+            }
             exportList.append(session)
 
     driver.quit()
